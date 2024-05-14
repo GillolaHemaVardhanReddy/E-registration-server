@@ -3,30 +3,23 @@ const multer = require('multer');
 const path =require("path"); // using this path we can get path for our present working directory
 const cors = require("cors");
 const mongoose = require("mongoose");
-// require('dotenv').config();
+require('dotenv').config();
 
-const port = 4000;
+const port = process.env.PORT;
 const app = express();
 app.use(cors());
-// app.use(cors(
-//     {
-//         origin: ["https://deploy-mern-1whq.vercel.app"], // this url is taken after app deployment
-//         methods: ["POST","GET"],
-//         credentials: true,
-//     }
-// ));
 app.use(express.json());
 
 app.get("/",(req,res)=>{
     res.send("app is running");
 })
 
-const storage = multer.diskStorage({
-    destination: './upload/images',
-    filename: (req,file,cb)=>{
-        return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
-    }
-});
+// const storage = multer.diskStorage({
+//     destination: './upload/images',
+//     filename: (req,file,cb)=>{
+//         return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+//     }
+// });
   
 // const upload = multer({storage:storage});
 // app.use('/images',express.static("upload/images"));
@@ -40,8 +33,8 @@ const storage = multer.diskStorage({
 // });
 
 // schema for employe username: gillolahemavardhanreddy@gmail.com password: Bala143
-mongoose.connect("mongodb+srv://gillolahemavardhanreddy:Bala143@cluster0.7bvjctw.mongodb.net/"); // connection to atlas compas
-//mongoose.connect(process.env.MONGO_URL) //connection to mongoose atlas driver
+//mongoose.connect("mongodb+srv://gillolahemavardhanreddy:Bala143@cluster0.7bvjctw.mongodb.net/"); // connection to atlas compas
+mongoose.connect(process.env.MONGO_URL) //connection to mongoose atlas driver
 const Employee = mongoose.model("Employee",{
     id: {
         type: Number,
