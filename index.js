@@ -84,9 +84,9 @@ app.post('/addemployee',async (req,res)=>{
     }
     const employee = new Employee({
         id: id,
-        name: {$toLower: req.body.name},
+        name: req.body.name.toLowerCase(),
         profile_picture: req.body.image,
-        role: {$toLower:req.body.role},
+        role: req.body.role.toLowerCase(),
         opinion: req.body.opinion,
         gender: req.body.gender,
         email: req.body.email,
