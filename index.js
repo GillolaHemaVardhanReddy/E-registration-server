@@ -117,4 +117,10 @@ app.get("/allemployee",async (req,res)=>{
     res.send(employees);
 });
 
+app.post("/searchemployee",async (req,res)=>{
+    let employees = await Employee.find({$or:[{name:req.body.searchdata},{role:req.body.searchdata}]});
+    console.log("found data for search is: ",employees);
+    res.send(employees);
+})
+
 app.listen(port,()=>console.log(`running server on port ${port}`));
