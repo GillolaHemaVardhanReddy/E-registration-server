@@ -118,7 +118,7 @@ app.get("/allemployee",async (req,res)=>{
 });
 
 app.post("/searchemployee",async (req,res)=>{
-    let employees = await Employee.find({$or:[{name:{$toLower: req.body.searchdata}},{role:{$toLower: req.body.searchdata}}]});
+    let employees = await Employee.find({$or:[{name:req.body.searchdata.toLowerCase()},{role:req.body.searchdata.toLowerCase()}]});
     console.log("found data for search is: ",employees);
     res.send(employees);
 })
