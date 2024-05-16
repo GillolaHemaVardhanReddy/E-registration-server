@@ -84,9 +84,9 @@ app.post('/addemployee',async (req,res)=>{
     }
     const employee = new Employee({
         id: id,
-        name: req.body.name,
+        name: {$toLower: req.body.name},
         profile_picture: req.body.image,
-        role: req.body.role,
+        role: {$toLower:req.body.role},
         opinion: req.body.opinion,
         gender: req.body.gender,
         email: req.body.email,
@@ -118,7 +118,7 @@ app.get("/allemployee",async (req,res)=>{
 });
 
 app.post("/searchemployee",async (req,res)=>{
-    let employees = await Employee.find({$or:[{name:req.body.searchdata},{role:req.body.searchdata}]});
+    let employees = await Employee.find({$or:[{name:{$toLower: req.body.searchdata}},{role:{$toLower: req.body.searchdata}}]});
     console.log("found data for search is: ",employees);
     res.send(employees);
 })
